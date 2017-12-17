@@ -41,6 +41,7 @@ if len(str(domainList)) > 0:
 	subList = []
 	vuln = []	
 	validUrls = open('validUrls.txt', 'a')
+	Takeover = open('Takeover.txt', 'a')
 
 	for words in readWords:
 		if not words.isspace():
@@ -63,6 +64,9 @@ if len(str(domainList)) > 0:
 				subList.append(words)
 				validUrls.write("{}\n".format(words))
 	
+	validUrls.close()
+	readWords.close()
+
 	if len(subList) > 0:
 		print(WHITE,"\n[!] Total {} Targets Loaded [!]\033[94m".format(len(subList)))
 		print("{}[!] Checking For Subdomain Takeover..... [!]\n\033[94m".format(WHITE))
@@ -103,12 +107,14 @@ if len(str(domainList)) > 0:
 					if VulnContent in subDoamin:
 						print("{}    >>-----> Vulnerable {}\033[94m \n".format(GREEN, domain))
 						vuln.append(domain)
+						Takeover.write(domain)
 
 				if not domain in vuln:
 					print("{}  -- Not Vulnerable {}\033[94m\n".format(OKBLUE, domain))
 					
 			except requests.exceptions.ReadTimeout:
-					print(RED,"!! Timeout => {}\033[94m".format(words.rstrip()))
-						
+					print(RED,"!! Timeout => {}\033[94m".format(words.rstrip()))			
+		
+		Takeover.close()				
 else:
 	print("\nSubdomain Takeover Scanner\nAuthor: SaadAhmed a.k.a InjectorPCA\nContact: http://facebook/InjectorPCA\n\n\t--help, -h: Show Help\n\t--list, -l: file contain list of domains\n")   	
