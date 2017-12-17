@@ -27,7 +27,7 @@ print(""" ______   __               _____
     /\_____\\\\ \__\/\____/    \ \_____\ \___/ \ \____\\\\ \_\ 
     \/_____/ \/__/\/___/      \/_____/\/__/   \/____/ \/_/ 
 
--- Coded By SaadAhmed a.k.a InjectorPCA 
+-- Coded By SaadAhmed a.k.a InjectorPCA  
 """)
 
 if len(str(domainList)) > 0:
