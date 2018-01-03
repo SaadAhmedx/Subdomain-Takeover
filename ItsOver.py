@@ -113,7 +113,7 @@ if len(str(domainList)) > 0:
 					print("{}  -- Not Vulnerable {}\033[94m\n".format(OKBLUE, domain))
 					
 			except requests.exceptions.ReadTimeout:
-					print(RED,"!! Timeout => {}\033[94m".format(words.rstrip()))			
+					print(RED,"!! Timeout => {}\033[94m".format(domain.rstrip()))			
 		
 		Takeover.close()				
 else:
