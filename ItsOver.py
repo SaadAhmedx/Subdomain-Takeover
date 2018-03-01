@@ -26,7 +26,6 @@ print(""" ______   __               _____
     \_\ \__\ \ \_/\__, `\   \ \ \_\ \ \ \_/ |/\  __/\ \ \/ 
     /\_____\\\\ \__\/\____/    \ \_____\ \___/ \ \____\\\\ \_\ 
     \/_____/ \/__/\/___/      \/_____/\/__/   \/____/ \/_/ 
-
 -- Coded By SaadAhmed a.k.a InjectorPCA  
 """)
 
@@ -39,7 +38,8 @@ if len(str(domainList)) > 0:
 	
 	print("{}[+] Loading Targets.... [+]\033[94m\n".format(WHITE))			
 	subList = []
-	vuln = []	
+	vuln = []
+	valid= []	
 	validUrls = open('validUrls.txt', 'a')
 	Takeover = open('Takeover.txt', 'a')
 
@@ -52,17 +52,8 @@ if len(str(domainList)) > 0:
 			words = words.replace("http://www.", "")
 			words = words.replace("/", "")
 			words = "http://{}".format(words)
-			
-			try:
-				requests.get("{}".format(words.rstrip()), timeout=5)
-
-			except (ConnectionError, requests.exceptions.ConnectionError, requests.exceptions.ReadTimeout, requests.exceptions.InvalidURL):
-				print(RED,"!! Error => {}\033[94m".format(words.rstrip()))
-
-			else:
-				print("-- Adding {}".format(words))
-				subList.append(words)
-				validUrls.write("{}\n".format(words))
+			subList.append(words)
+			validUrls.write("{}\n".format(words))
 	
 	validUrls.close()
 	readWords.close()
@@ -71,32 +62,32 @@ if len(str(domainList)) > 0:
 		print(WHITE,"\n[!] Total {} Targets Loaded [!]\033[94m".format(len(subList)))
 		print("{}[!] Checking For Subdomain Takeover..... [!]\n\033[94m".format(WHITE))
 		
-		VulnContents = ["<strong>Trying to access your account",
-		"Use a personal domain name",
-		"The request could not be satisfied",
-		"Sorry, We Couldn't Find That Page",
-		"Fastly error: unknown domain",
-		"The feed has not been found",
-		"You can claim it now at",
+		VulnContents = ["<strong>Trying to access your account", 
+		"Use a personal domain name", 
+		"The request could not be satisfied", 
+		"Sorry, We Couldn't Find That Page", 
+		"Fastly error: unknown domain", 
+		"The feed has not been found", 
+		"You can claim it now at", 
 		"Publishing platform",                        
 		"There isn't a GitHub Pages site here",                       
 		"No settings were found for this company",
-		"Heroku | No such app",
+		"Heroku | No such app", 
 		"<title>No such app</title>",                        
-		"You've Discovered A Missing Link. Our Apologies!",
+		"You've Discovered A Missing Link. Our Apologies!", 
 		"Sorry, couldn&rsquo;t find the status page",                        
-		"NoSuchBucket",
-		"Sorry, this shop is currently unavailable",
-		"<title>Hosted Status Pages for Your Company</title>",
+		"NoSuchBucket", 
+		"Sorry, this shop is currently unavailable", 
+		"<title>Hosted Status Pages for Your Company</title>", 
 		"data-html-name=\"Header Logo Link\"",                        
 		"<title>Oops - We didn't find your site.</title>",
 		"class=\"MarketplaceHeader__tictailLogo\"",                        
-		"Whatever you were looking for doesn't currently exist at this address",
-		"The requested URL was not found on this server",
-		"The page you have requested does not exist",
-		"This UserVoice subdomain is currently available!",
-		"but is not configured for an account on our platform",
-		"<title>Help Center Closed | Zendesk</title>",
+		"Whatever you were looking for doesn't currently exist at this address", 
+		"The requested URL was not found on this server", 
+		"The page you have requested does not exist", 
+		"This UserVoice subdomain is currently available!", 
+		"but is not configured for an account on our platform", 
+		"<title>Help Center Closed | Zendesk</title>", 
 		"Sorry, We Couldn't Find That Page Please try again"]
 
 		for domain in subList:
@@ -107,14 +98,18 @@ if len(str(domainList)) > 0:
 					if VulnContent in subDoamin:
 						print("{}    >>-----> Vulnerable {}\033[94m \n".format(GREEN, domain))
 						vuln.append(domain)
-						Takeover.write(domain)
+						valid.append(domain)
+						Takeover.write("{}\n".format(domain))
 
 				if not domain in vuln:
-					print("{}  -- Not Vulnerable {}\033[94m\n".format(OKBLUE, domain))
+					print("{}  -- Not Vulnerable {}\033[94m \n".format(OKBLUE, domain))
+					valid.append(domain)
 					
-			except requests.exceptions.ReadTimeout:
-					print(RED,"!! Timeout => {}\033[94m".format(domain.rstrip()))			
+			except:
+					print(RED,"!! Timeout => {}\033[94m \n".format(domain.rstrip()))			
 		
+
+		print("\n".join(valid))
 		Takeover.close()				
 else:
-	print("\nSubdomain Takeover Scanner\nAuthor: SaadAhmed a.k.a InjectorPCA\nContact: http://facebook/InjectorPCA\n\n\t--help, -h: Show Help\n\t--list, -l: file contain list of domains\n")   	
+    print("\nSubdomain Takeover Scanner\nAuthor: SaadAhmed a.k.a InjectorPCA\nContact: http://facebook/InjectorPCA\n\n\t--help, -h: Show Help\n\t--list, -l: file contain list of domains\n") 
