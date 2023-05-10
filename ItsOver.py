@@ -112,4 +112,4 @@ if len(str(domainList)) > 0:
 		print("\n".join(valid))
 		Takeover.close()				
 else:
-    print("\nSubdomain Takeover Scanner\nAuthor: SaadAhmed a.k.a InjectorPCA\nContact: http://facebook/InjectorPCA\n\n\t--help, -h: Show Help\n\t--list, -l: file contain list of domains\n") 
+    print("\nSubdomain Takeover Scanner\nAuthor: SaadAhmed \n\n\t--help, -h: Show Help\n\t--list, -l: file contain list of domains\n") 
